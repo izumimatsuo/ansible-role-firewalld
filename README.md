@@ -1,4 +1,4 @@
-# ansible-role-firewalld
+# ansible-role-firewalld [![Build Status](https://travis-ci.org/izumimatsuo/ansible-role-firewalld.svg?branch=master)](https://travis-ci.org/izumimatsuo/ansible-role-firewalld)
 
 CentOS 7 の firewalld の設定をおこなう ansible role です。
 
