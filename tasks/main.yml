@@ -3,7 +3,8 @@
 - name: install firewalld package
   yum:
     name: firewalld
-  # latest version was BUG. so dawngraded.
+
+  # when centos 7.6, latest version was BUG. so dawngraded.
   #  yum:
   #    name: "{{ packages }}"
   #  vars:
@@ -51,3 +52,6 @@
     - ssh
     - dhcpv6-client
   notify: restart firewalld service
+
+- include_tasks: fail2ban.yml
+  when: fail2ban_enabled_sshd or fail2ban_enabled_nginx or fail2ban_enabled_postfix or fail2ban_enabled_squid

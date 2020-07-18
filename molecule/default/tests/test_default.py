@@ -10,6 +10,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 def test_firewalld_is_installed(host):
     package = host.package('firewalld')
     assert package.is_installed
+    assert package.version.startswith("0.6")
 
 
 def test_firewalld_running_and_enabled(host):
@@ -27,3 +28,15 @@ def test_firewalld_rules(host):
     assert 0 == host.run(rule2).rc
     assert 0 == host.run(rule3).rc
     assert '' == host.check_output('firewall-cmd --list-services')
+
+
+def test_fail2ban_is_installed(host):
+    package = host.package('fail2ban')
+    assert package.is_installed
+    assert package.version.startswith("0.10")
+
+
+def test_fail2ban_running_and_enabled(host):
+    service = host.service('fail2ban')
+    assert service.is_running
+    assert service.is_enabled

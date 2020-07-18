@@ -1,0 +1,29 @@
+---
+- name: install epel release
+  yum:
+    name: epel-release
+
+- name: install fail2ban package
+  yum:
+    name:
+      - fail2ban
+      - fail2ban-systemd
+
+- name: copy fail2ban jail conf
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    mode: 0644
+  notify: restart fail2ban service
+
+- name: change blocktype REJECT -> DROP
+  replace:
+    path: /etc/fail2ban/action.d/iptables-common.conf
+    regexp: '^blocktype.*$'
+    replace: 'blocktype = DROP'
+
+- name: start fail2ban service
+  service:
+    name: fail2ban
+    state: started
+    enabled: yes

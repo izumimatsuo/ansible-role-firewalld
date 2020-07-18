@@ -1,5 +1,7 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    - fail2ban_enabled_sshd: yes
   roles:
     - role: ansible-role-firewalld
