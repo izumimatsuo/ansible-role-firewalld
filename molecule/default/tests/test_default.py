@@ -33,7 +33,7 @@ def test_firewalld_rules(host):
 def test_fail2ban_is_installed(host):
     package = host.package('fail2ban')
     assert package.is_installed
-    assert package.version.startswith("0.10")
+    assert package.version.startswith("0.11")
 
 
 def test_fail2ban_running_and_enabled(host):
