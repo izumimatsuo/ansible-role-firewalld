@@ -43,6 +43,19 @@
   with_items: "{{ firewall_enabled_ports }}"
   notify: restart firewalld service
 
+- name: get current port list
+  shell: 'set -o pipefail; firewall-cmd --list-ports | tr " " "\n"'
+  register: current_ports
+  changed_when: false
+
+- name: unset firewall rules (ports)
+  firewalld:
+    port: '{{ item }}'
+    permanent: true
+    state: disabled
+  with_items: '{{ current_ports.stdout_lines | difference(firewall_enabled_ports) }}'
+  notify: restart firewalld service
+
 - name: unset firewall default rules
   firewalld:
     service: "{{ item }}"

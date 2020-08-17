@@ -1,6 +1,6 @@
 ---
 # defaults file for ansible-role-firewalld
-firewall_enabled_ports: [22/tcp]
+firewall_enabled_ports: ['22/tcp']
 fail2ban_enabled_sshd: no
 fail2ban_enabled_nginx: no
 fail2ban_enabled_postfix: no
